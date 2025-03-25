@@ -128,7 +128,7 @@ def home():
                     print(f" Error saving file: {str(e)}")
 
             else:
-                flash("⚠ Invalid file type. Please upload a PDF.", "warning")
+                flash(" Invalid file type. Please upload a PDF.", "warning")
         
         elif "query" in request.form:
             query = request.form["query"]
