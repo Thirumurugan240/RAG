@@ -72,7 +72,7 @@ def generate_response(query, context):
     groq_api_key = os.getenv("GROQ_API_KEY")
     
     if not groq_api_key:
-        raise ValueError("❌ Missing Groq API key. Set 'GROQ_API_KEY' as an environment variable.")
+        raise ValueError(" Missing Groq API key. Set 'GROQ_API_KEY' as an environment variable.")
 
     client = groq.Client(api_key=groq_api_key)
 
@@ -109,32 +109,32 @@ def home():
                 pdf_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
 
                 try:
-                    print(f"🟢 Attempting to save file at: {pdf_path}") 
+                    print(f" Attempting to save file at: {pdf_path}") 
                     file.save(pdf_path)  
                     
                     if os.path.exists(pdf_path):  
-                        print(f"✅ File successfully saved at: {pdf_path}")
+                        print(f" File successfully saved at: {pdf_path}")
                     else:
-                        print(f"❌ File not found after saving. Check permissions.")
+                        print(f" File not found after saving. Check permissions.")
 
                     text = extract_text_from_pdf(pdf_path)
                     chunks = chunk_text(text)
                     index, chunks = create_vector_store(chunks)
                     session["index_created"] = True
-                    flash("✅ PDF uploaded and processed successfully!", "success")
+                    flash(" PDF uploaded and processed successfully!", "success")
 
                 except Exception as e:
-                    flash(f"❌ Error saving file: {str(e)}", "danger")
-                    print(f"❌ Error saving file: {str(e)}")
+                    flash(f" Error saving file: {str(e)}", "danger")
+                    print(f" Error saving file: {str(e)}")
 
             else:
-                flash("⚠️ Invalid file type. Please upload a PDF.", "warning")
+                flash("⚠ Invalid file type. Please upload a PDF.", "warning")
         
         elif "query" in request.form:
             query = request.form["query"]
 
             if not session.get("index_created", False):
-                flash("❌ Please upload a PDF first.", "danger")
+                flash(" Please upload a PDF first.", "danger")
             else:
                 retrieved_chunks = retrieve_relevant_chunks(query, index, chunks)
                 reranked_chunks = rerank_with_bm25(query, retrieved_chunks)
